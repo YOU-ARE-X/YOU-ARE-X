@@ -12,28 +12,31 @@ using UnityEngine;
 
 public class Element {
 
-	public string elementName;
+	public string name;
 	public List<ElementScene> scenes = new List<ElementScene>();
 
-	public void init(string n) {
-		elementName = n;
+	public Element(string n) {
+		name = n;
 	}
 
-	public void createScene(string s, string z, int sq) {
-		ElementScene scene = new ElementScene();
-		scene.init(s, z, sq);
+	public void createScene(string z, int sq) {
+		ElementScene scene = new ElementScene(this.name, z, sq);
 		scenes.Add(scene);
 	}
 }
 
 public class ElementScene {
 
-	public string sceneName;
+	public string element;
+	public string name;
 	public string zoom;
 	public int sequence;
 
-	public void init(string s, string z, int sq) {
-		sceneName = s;
+	public bool loaded = false;
+
+	public ElementScene(string s, string z, int sq) {
+		element = s;
+		name = s + "-" + sq;
 		zoom = "x" + z;
 		sequence = sq;
 	}
