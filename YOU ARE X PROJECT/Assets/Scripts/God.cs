@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 	/*
 	Creates a scene sequence at start,
@@ -20,8 +21,13 @@ public class God : MonoBehaviour {
 	private static Random rng = new Random();
 
 	private string[] lines = new string[]{"Borium","Water","Dirt","Nitrogen"};
+	private string longLines;
 	private Element human;
 	public Scene loader;
+
+	public Text you;
+	public Text are;
+	public Text x;
 
 	void Start() {
 		DontDestroyOnLoad(this.gameObject);
@@ -112,16 +118,22 @@ public class God : MonoBehaviour {
 
 	//text sequence
 	private void youAreText(ElementScene s) {
-		string x = s.element;
-		string big = "";
+		//make text invisible
+		if (you) you.color = new Color(255,255,255,0);
+		if (are) are.color = new Color(255,255,255,0);
+		if (x) x.color = new Color(255,255,255,0);
+
+		string xText = s.element;
+		longLines = "";
 
 		for (int i = 0; i < 200; i++) {
-			big += "\n" + lines[Random.Range(0, lines.Length)];
+			longLines += "\n" + lines[Random.Range(0, lines.Length)];
 		}
 
-		//TODO: add text animation
+		longLines += "\n" + xText;
+		longLines = longLines.ToUpper();
 
-		loadScene(s);
+		StartCoroutine(textSequence(s));
 	}
 
 	//end scene, and load Loader scene
@@ -147,5 +159,39 @@ public class God : MonoBehaviour {
 	IEnumerator time() {
 		yield return new WaitForSeconds(secondsPerScene);
 		endScene();
+	}
+
+	IEnumerator textSequence(ElementScene s) {
+		yield return new WaitForSeconds(1);
+		you.color = new Color(255,255,255,255);
+		yield return new WaitForSeconds(1);
+		are.color = new Color(255,255,255,255);
+		yield return new WaitForSeconds(1);
+		x.text = longLines;
+		x.color = new Color(255,255,255,255);
+		RectTransform rect = x.gameObject.GetComponent<RectTransform>();
+		rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -950);
+		while(rect.anchoredPosition.y < 969.9f) {
+			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, ease(rect.anchoredPosition.y, 970, 1f));
+			yield return new WaitForSeconds(0.001f);
+		}
+		yield return new WaitForSeconds(10);
+		loadScene(s);
+	}
+
+	//statics
+
+	public static float ease(float val, float target, float ease) {
+		if (val == target) return val;
+
+		float difference = target - val;
+		return val += ((difference * ease) * Time.deltaTime);
+	}
+
+	public static float remap(float val, float min1, float max1, float min2, float max2) {
+		if (val < min1) val = min1;
+		if (val > max1) val = max1;
+
+		return (val - min1) / (max1 - min1) * (max2 - min2) + min2;
 	}
 }
