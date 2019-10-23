@@ -18,29 +18,43 @@
 	  		#include "UnityCG.cginc"
             #include "ClassicNoise3D.hlsl"
 
-            static const float PI = 3.14159;
+            static const int antialiasing = 4;
 
 	  		uniform sampler2D _MainTex;
-            uniform sampler2D _SourceTex; 
+            uniform sampler2D _SourceTex;
 
-            float2 remap(float2 coord) {
-                //return coord + 0.01 * float2(sin(coord.x * PI * 5), sin(coord.y * PI * 5));
-                
-                float2 dist = 0.2 * float2(
-                    cnoise(float3(10.0 * (coord), _Time.y * 0.5)), 
-                    cnoise(float3(10.0 * (coord +  float2(1.0, 1.0)), _Time.y * 0.5))
+            float4 _MainTex_TexelSize;
+
+            float2 distort(float2 coord) {
+                float2 noise;
+                    
+                noise = 0.3 * float2(
+                    cnoise(float3(8.0 * (coord), _Time.y * 0.5)), 
+                    cnoise(float3(8.0 * (coord +  float2(1.0, 1.0)), _Time.y * 0.5))
                 );
 
-                return coord 
-                + 2.5 * unity_DeltaTime.z * float2(
-                    cnoise(float3(2.0 * (coord + dist), _Time.y * 0.2)), 
-                    cnoise(float3(2.0 * (coord + dist +  float2(1.0, 1.0)), _Time.y * 0.2))
+                noise = 1.8 * unity_DeltaTime.z * float2(
+                    cnoise(float3(2.0 * (coord + noise), _Time.y * 0.2)), 
+                    cnoise(float3(2.0 * (coord + noise +  float2(1.0, 1.0)), _Time.y * 0.2))
                 );
+
+                return noise;
             }
 
 	  		fixed4 frag(v2f_img i) : COLOR {
-			    return exp(- unity_DeltaTime.z * 8.0) * fixed4(tex2D(_MainTex, remap(i.uv)).rgba);
-	  		}
+            
+                float2 delta = distort(i.uv);
+                float2 coord = i.uv;
+                float norm = length(i.uv);
+
+                fixed4 result = 0;
+
+                for(int count = 0; count < antialiasing; count++) {
+                    result += fixed4(tex2D(_MainTex, coord + delta * (count + 1.0 ) / (antialiasing * 1.0)).rgba);
+                }
+
+                return result / (1.0 * antialiasing) * exp(- unity_DeltaTime.z * 12.0);
+            }
 	  		ENDCG
 	 	}
 

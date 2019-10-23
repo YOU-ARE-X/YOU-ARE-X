@@ -25,15 +25,15 @@
 
             // can be rewritten to be more efficient by only computing the luma values once rather than for every kernel
             float kirsch(sampler2D _Tex, float2 loc, float2 delta) {
-                float temp = 0;
+                float temp;
                 
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = convolve(_MainTex, loc, delta,
                     float3x3(
                        +5.0, +5.0, +5.0,
                        -3.0, +0.0, -3.0,
                        -3.0, -3.0, -3.0 
                     )
-                ));
+                );
                 temp = max(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        -3.0, +5.0, +5.0,
@@ -87,8 +87,9 @@
             }
 
 	  		fixed4 frag (v2f_img i) : COLOR {
+                float blend = 0.25;
 	   			//fixed3 col = tex2D(_MainTex, i.uv).rgb;
-                float edge = kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy);
+                float edge = blend * kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy) + (1.0 - blend) * float3(1.0, 1.0, 1.0) * luma(tex2D(_MainTex, i.uv));
 				return fixed4(edge, edge, edge, 1.0);
 	  		}
 	  		ENDCG
