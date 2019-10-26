@@ -23,6 +23,7 @@ public class God : MonoBehaviour {
 	private string[] lines = new string[]{"Borium","Water","Dirt","Nitrogen"};
 	private string longLines;
 	private Element human;
+
 	public Scene loader;
 
 	public Text you;
@@ -152,8 +153,18 @@ public class God : MonoBehaviour {
 	//load scene and measures time to switch scene
 	private void loadScene(ElementScene s) {
 		SceneManager.LoadScene(SceneManager.GetSceneByName(s.name).name);
+		loadUI(s);
 		if (s.name == "Human") return;
 		StartCoroutine(time());
+	}
+
+	//update UI on scene load
+	private void loadUI(ElementScene s) {
+		Text z = GameObject.Find("UI/Zoom").GetComponent<Text>();
+		Text e = GameObject.Find("UI/Element").GetComponent<Text>();
+
+		if (z) z.text = s.zoom;
+		if (e) e.text = s.name;
 	}
 
 	IEnumerator time() {
@@ -180,7 +191,6 @@ public class God : MonoBehaviour {
 	}
 
 	//statics
-
 	public static float ease(float val, float target, float ease) {
 		if (val == target) return val;
 
