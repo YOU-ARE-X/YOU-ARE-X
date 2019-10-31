@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ScanningElectron
+  m_Name: ScanningElectronIcosphere
   m_Shader: {fileID: 4800000, guid: 57eee7d29281e4ea9b2017dba78821af, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,24 +60,28 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmountCoarse: 0.4
-    - _AmountFine: 0.02
-    - _AmountMedium: 0.1
+    - _AmountCoarse: 1
+    - _AmountFine: 0.036
+    - _AmountMedium: 0.104
+    - _Blend2: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistCoarse: 0.6
+    - _DistCoarse: 0.72
     - _DistMedium: 3
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Invert: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NormalTexEnable: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 10
-    - _ScaleCoarse: 0.4
+    - _Prop1: 0
+    - _Scale: 2.1
+    - _ScaleCoarse: 0.83
     - _ScaleFine: 70
     - _ScaleMedium: 3
     - _SmoothnessTextureChannel: 0
@@ -89,6 +97,7 @@ Material:
     - _TexMediumScale: 3
     - _TexScale: 10
     - _UVSec: 0
+    - _UseNormalTex: 0
     - _WaveScale: 0.07
     - _ZWrite: 1
     m_Colors:

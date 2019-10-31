@@ -3,6 +3,22 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "Custom/ScanningElectron" {
+    Properties {
+        _DetectorDirection ("Detector Direction", Vector) = (1.0,-2.0,1.0)
+        [Header(Static Texture Settings)] 
+        [Toggle] _NormalTexEnable("Enable", Float) = 0
+        _NormalTex ("Normal Texture", 2D) = "" {}
+        [Header(Procedural Texture Settings)] 
+        [PowerSlider(2.0)] _Scale           ("Scale Global", Range (0.0, 100.0)) = 10.0
+        [PowerSlider(2.0)] _ScaleCoarse     ("Scale Coarse", Range (0.0, 1.0)) = 0.4
+        [PowerSlider(2.0)] _ScaleMedium     ("Scale Medium", Range (1.0, 10.0)) = 3.0
+        [PowerSlider(2.0)] _ScaleFine       ("Scale Fine", Range (10.0, 100.0)) = 70
+        _DistCoarse      ("Distortion Coarse", Range (0.0, 5.0)) = 0.6
+        _DistMedium      ("Distortion Medium", Range (0.0, 5.0)) = 3.0
+        _AmountCoarse    ("Amount Coarse", Range (0.0, 5.0)) = 0.4
+        _AmountMedium    ("Amount Medium", Range (0.0, 5.0)) = 0.1
+        _AmountFine      ("Amount Fine", Range (0.0, 5.0)) = 0.02
+    }
     SubShader {
 
         // fallback necessary for ambient occlusion
@@ -16,47 +32,95 @@ Shader "Custom/ScanningElectron" {
             #include "UnityCG.cginc"
             #include "ClassicNoise2D.hlsl"
 
+            float3 _DetectorDirection;
+            uniform sampler2D _NormalTex;
+            float _NormalTexEnable;
+            float _Scale;
+            float _ScaleCoarse;
+            float _ScaleMedium;
+            float _ScaleFine;
+            float _DistCoarse;
+            float _DistMedium;
+            float _AmountCoarse;
+            float _AmountMedium;
+            float _AmountFine;
+
             float heightMap(float2 uv) {
                 // generate height map with perlin noise
+                
+                float2 uvShifted = uv + float2(1.0, 1.0);
 
-                float noise;
-            
-                noise =  0.2 * cnoise(0.5  * (uv));
-                noise =  0.2 * cnoise(4.0  * (uv + 5.0 * noise));
-                noise += 0.02 * cnoise(70.0 * (uv + 0.1 * noise));
+                float2 noiseDistCoarse = float2(
+                    cnoise(_Scale * _ScaleCoarse * uv), 
+                    cnoise(_Scale * _ScaleCoarse * uvShifted)
+                );
+                float noiseCoarse = noiseDistCoarse.x;
 
-                return noise;
+                // coarse noise distorts medium noise
+                
+                float2 noiseDistMedium = float2(
+                    cnoise(_Scale * (_ScaleMedium * uv + noiseDistCoarse * _DistCoarse)), 
+                    cnoise(_Scale * (_ScaleMedium * uvShifted + noiseDistCoarse * _DistCoarse)) 
+                );
+                float noiseMedium = noiseDistMedium.x;
+
+                // medium noise distorts fine noise
+
+                float noiseFine = 
+                    cnoise(_Scale * (_ScaleFine * uv + noiseDistMedium * _DistMedium));
+
+                // final result is a weighted sum of all three noise types
+                
+                return 
+                    noiseCoarse * _AmountCoarse +
+                    noiseMedium * _AmountMedium +
+                    noiseFine * _AmountFine;
             }
 
-            float3 normalBumpMap(float3 normal, float4 tangent, float2 uv, float delta, float strength) {
+            float3 normalMap(float3 normal, float4 tangent, float2 uv) {
                 // apply sobel filter to height function
                 // apply normal map on face normal
 
-                float tl = heightMap(uv + float2(- delta, - delta)); // top left
-                float cl = heightMap(uv + float2(- delta,       0)); // center left
-                float bl = heightMap(uv + float2(- delta, + delta)); // bottom left
+                float3 bump;
 
-                float tc = heightMap(uv + float2(      0, - delta)); // top center
-                float bc = heightMap(uv + float2(      0, + delta)); // bottom center
+                if(_NormalTexEnable == 0) {
+                    // use procedural height map
 
-                float tr = heightMap(uv + float2(+ delta, - delta)); // top right
-                float cr = heightMap(uv + float2(+ delta,       0)); // center right
-                float br = heightMap(uv + float2(+ delta, + delta)); // bottom right
+                    // differentiation uv increment for sobel filter
+                    float delta = 0.01;
 
-                float dx = (tr + 2.0 * cr + br) - (tl + 2.0 * cl + bl);
-                float dy = (bl + 2.0 * bc + br) - (tl + 2.0 * tc + tr);
-                float dz = 1.0 / strength;
+                    // strength of height map
+                    float strength = 1.0;
 
-                // compute bump vector using sobel filter
+                    float tl = heightMap(uv + float2(- delta, - delta)); // top left
+                    float cl = heightMap(uv + float2(- delta,       0)); // center left
+                    float bl = heightMap(uv + float2(- delta, + delta)); // bottom left
 
-                float3 bump = normalize(float3(dx, dy, dz));
+                    float tc = heightMap(uv + float2(      0, - delta)); // top center
+                    float bc = heightMap(uv + float2(      0, + delta)); // bottom center
+
+                    float tr = heightMap(uv + float2(+ delta, - delta)); // top right
+                    float cr = heightMap(uv + float2(+ delta,       0)); // center right
+                    float br = heightMap(uv + float2(+ delta, + delta)); // bottom right
+
+                    float dx = (tr + 2.0 * cr + br) - (tl + 2.0 * cl + bl);
+                    float dy = (bl + 2.0 * bc + br) - (tl + 2.0 * tc + tr);
+                    float dz = 1.0 / strength;
+
+                    // compute bump vector using sobel filter
+
+                    bump = normalize(float3(dx, dy, dz));
+                } else {
+                    // use texture for normal map
+                    
+                    bump = tex2D(_NormalTex, uv) * 2.0 + float3(1.0, 1.0, 1.0);
+                }
 
                 // apply bump vector on fragment normal
 
                 float3 bitangent = cross(normal, tangent.xyz ) * tangent.w;
 
                 return bump.x * tangent + bump.y * bitangent + bump.z * normal;
-
             }
 
             struct appdata {
@@ -88,11 +152,11 @@ Shader "Custom/ScanningElectron" {
             }
 
             fixed4 frag(v2f i) : SV_Target {
-                float3 normalDirection = normalize(normalBumpMap(i.normal, i.tangent, i.uv, 0.01, 1.0));
-                float3 detectorDirection = normalize(float3(1.0, -2.0, 1.0));
+                float3 normalDirection = normalize(normalMap(i.normal, i.tangent, i.uv));
+                float3 detectorDirection = normalize(_DetectorDirection.xyz);
                 //float3 viewDirection = normalize(_WorldSpaceCameraPos - i.posWorld.xyz);
 
-                fixed brightness = 1.0 / (dot(normalDirection, detectorDirection) + 1.0);
+                fixed brightness = 1.0 / (dot(normalDirection, detectorDirection) + 2.0);
 
                 return fixed4(brightness, brightness, brightness, 1.0);
 

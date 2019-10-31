@@ -19,7 +19,44 @@ namespace Assets.Scripts.Cam.Effects {
         bool currentTextureEye1 = false;
         bool currentEye = false;
 
-		public void OnRenderImage(RenderTexture source, RenderTexture destination) {
+        public int antiAliasing = 1;
+        public float scaleDistortion = 8.0f;
+        public float scaleFlow = 2.0f;
+        public float scaleTurbulence = 60.0f;
+        public float speedDistortion = 0.5f;
+        public float speedFlow = 0.2f;
+        public float speedTurbulence = 5.8f;
+        public float amountDistortion = 0.1f;
+        public float amountFlow = 2.5f;
+        public float amountTurbulence = 0.01f;
+
+        private void SanitizeShaderParameters() {
+            antiAliasing =      Mathf.Clamp(antiAliasing, 1, 2048);
+            scaleDistortion =   Mathf.Clamp(scaleDistortion, 0.0f, 100.0f);
+            scaleFlow =         Mathf.Clamp(scaleFlow, 0.0f, 100.0f);
+            scaleTurbulence =   Mathf.Clamp(scaleTurbulence, 0.0f, 100.0f);
+            speedDistortion =   Mathf.Clamp(speedDistortion, 0.0f, 100.0f);
+            speedFlow =         Mathf.Clamp(speedFlow, 0.0f, 100.0f);
+            speedTurbulence =   Mathf.Clamp(speedTurbulence, 0.0f, 100.0f);
+            amountDistortion =  Mathf.Clamp(amountDistortion, 0.0f, 100.0f);
+            amountFlow =        Mathf.Clamp(amountFlow, 0.0f, 100.0f);
+            amountTurbulence =  Mathf.Clamp(amountTurbulence, 0.0f, 100.0f);
+        }
+
+        private void SendShaderParameters() {
+            material.SetInt("antiAliasing", antiAliasing);
+            material.SetFloat("scaleDistortion", scaleDistortion);
+            material.SetFloat("scaleFlow", scaleFlow);
+            material.SetFloat("scaleTurbulence", scaleTurbulence);
+            material.SetFloat("speedDistortion", speedDistortion);
+            material.SetFloat("speedFlow", speedFlow);
+            material.SetFloat("speedTurbulence", speedTurbulence);
+            material.SetFloat("amountDistortion", amountDistortion);
+            material.SetFloat("amountFlow", amountFlow);
+            material.SetFloat("amountTurbulence", amountTurbulence);
+        }
+
+        public void OnRenderImage(RenderTexture source, RenderTexture destination) {
 
             // create the accumulation textures
             if (!currentEye && (accumTexture0 == null || accumTexture0.width != source.width || accumTexture0.height != source.height)) {
@@ -54,6 +91,10 @@ namespace Assets.Scripts.Cam.Effects {
                 // set the overlaying texture
                 material.SetTexture("_SourceTex", source);
             }
+
+            // sanitize & send shader parameters
+            SanitizeShaderParameters();
+            SendShaderParameters();
 
             if (!currentEye) {
                 // left eye

@@ -10,6 +10,9 @@ namespace Assets.Scripts.Cam.Effects {
 		private Material m_material;
 		private Shader shader;
 
+        public float blend = 0.25f;
+        public bool tanh = true;
+
 		private Material material {
 			get {
 				if (m_material == null) {
@@ -21,7 +24,12 @@ namespace Assets.Scripts.Cam.Effects {
 		}
 
 		public void OnRenderImage(RenderTexture src, RenderTexture dest) {
-			if (material) Graphics.Blit(src, dest, material);
+            blend = Mathf.Clamp(blend, 0.0f, 1.0f);
+
+            material.SetFloat("blend", blend);
+            material.SetInt("usetanh", (tanh ? 1 : 0));
+
+            if (material) Graphics.Blit(src, dest, material);
 		}
 	}
 }

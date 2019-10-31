@@ -10,8 +10,11 @@
 	  		#include "UnityCG.cginc"
 
 	  		uniform sampler2D _MainTex;
-
             float4 _MainTex_TexelSize;
+
+            // parameters set by script
+            float blend;
+            int usetanh;
 
             float luma(fixed3 color) {
                 return dot(color, fixed3(0.8, 0.8, 0.8));
@@ -87,9 +90,10 @@
             }
 
 	  		fixed4 frag (v2f_img i) : COLOR {
-                float blend = 0.25;
-	   			//fixed3 col = tex2D(_MainTex, i.uv).rgb;
                 float edge = blend * kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy) + (1.0 - blend) * float3(1.0, 1.0, 1.0) * luma(tex2D(_MainTex, i.uv));
+                if(usetanh) {
+                    edge = tanh(edge);
+                }
 				return fixed4(edge, edge, edge, 1.0);
 	  		}
 	  		ENDCG
