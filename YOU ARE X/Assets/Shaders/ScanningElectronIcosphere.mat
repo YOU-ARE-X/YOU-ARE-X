@@ -23,6 +23,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ColorTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -36,6 +40,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -60,9 +68,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmountCoarse: 1
+    - _AmountCoarse: 1.92
     - _AmountFine: 0.036
-    - _AmountMedium: 0.104
+    - _AmountMedium: 0.22
     - _Blend2: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -76,17 +84,21 @@ Material:
     - _Invert: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NormalStrength: 1
     - _NormalTexEnable: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ParallaxHeight: 0.18
+    - _ParallaxStrength: 0.4
     - _Prop1: 0
-    - _Scale: 2.1
+    - _Scale: 3
     - _ScaleCoarse: 0.83
     - _ScaleFine: 70
     - _ScaleMedium: 3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _StaticTexEnable: 0
     - _TexCoarseAmount: 0.4
     - _TexCoarseDist: 0.6
     - _TexCoarseScale: 0.4
@@ -102,4 +114,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DetectorDirection: {r: -2, g: -2, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

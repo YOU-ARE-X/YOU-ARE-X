@@ -89,10 +89,14 @@
                 return temp;
             }
 
+            float tanhNormalized(float x) {
+                return 0.5 * (tanh(2.0 * x - 1.0) + 1.0);
+            }
+
 	  		fixed4 frag (v2f_img i) : COLOR {
                 float edge = blend * kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy) + (1.0 - blend) * float3(1.0, 1.0, 1.0) * luma(tex2D(_MainTex, i.uv));
                 if(usetanh) {
-                    edge = tanh(edge);
+                    edge = tanhNormalized(edge);
                 }
 				return fixed4(edge, edge, edge, 1.0);
 	  		}

@@ -23,6 +23,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ColorTex:
+        m_Texture: {fileID: 2800000, guid: c42a90f17e3cc40ad8e64bf60efd6efc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -39,6 +43,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _HeightTex:
+        m_Texture: {fileID: 2800000, guid: 5fe3a36dd81694095a6f2452b7dd1327, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -48,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 18d86be74b1134bcd99377a9c83ea80a, type: 3}
+        m_Texture: {fileID: 2800000, guid: ce45994c68e07448b97539a1bb5df148, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -76,17 +84,22 @@ Material:
     - _Invert: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NormalStrength: 1
     - _NormalTexEnable: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ParallaxHeight: 0.46
+    - _ParallaxSamples: 16
+    - _ParallaxStrength: 0.36
     - _Prop1: 0
-    - _Scale: 2.1
+    - _Scale: 9.2
     - _ScaleCoarse: 0.83
     - _ScaleFine: 70
     - _ScaleMedium: 3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _StaticTexEnable: 0
     - _TexCoarseAmount: 0.4
     - _TexCoarseDist: 0.6
     - _TexCoarseScale: 0.4
@@ -102,6 +115,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DetectorDirection: {r: 1, g: -2, b: 1, a: 0}
+    - _DetectorDirection: {r: -2.2, g: -2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MyVector: {r: 0, g: 0, b: 0, a: 0}
