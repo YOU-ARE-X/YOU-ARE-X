@@ -85,9 +85,11 @@ Material:
     - _NormalStrength: 1
     - _NormalTexEnable: 0
     - _OcclusionStrength: 1
+    - _OffsetHeight: 0
     - _Parallax: 0.02
+    - _ParallaxEnable: 0
     - _ParallaxHeight: 0.06
-    - _ParallaxStrength: 0.07
+    - _ParallaxStrength: 0
     - _Scale: 10
     - _ScaleCoarse: 0.4
     - _ScaleFine: 70
