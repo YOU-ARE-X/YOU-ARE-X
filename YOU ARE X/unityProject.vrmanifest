@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.youarex.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\z Specs\\Projects\\Code\\UE4 - U3D\\YOU-ARE-X\\YOU ARE X\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "YOU ARE X [Testing]"
+        }
+      }
+    }
+  ]
+}

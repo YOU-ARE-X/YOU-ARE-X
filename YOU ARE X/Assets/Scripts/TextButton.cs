@@ -9,36 +9,34 @@ using UnityEngine.EventSystems;
 	and communicates click to TextToggle
 	*/
 
-public class TextButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
+public class TextButton : MonoBehaviour {
 
-	private TextToggle toggle;
-	private RectTransform t;
-	private bool hovering = false;
+	public TextToggle textToggle;
+	public RectTransform t;
+	public bool hovering = false;
 	private float smallSize = 0.2f;
 	private float bigSize = 0.3f;
 	private float size = 0.2f;
 
 	void Start() {
-		toggle = gameObject.GetComponentInParent<TextToggle>();
-		t = GetComponent<RectTransform>();
+		StartCoroutine(forgetHover());
 	}
 
 	void Update() {
-		if (hovering && toggle.opened == false) size = God.ease(size, bigSize, 0.05f);
-		else size = God.ease(size, smallSize, 0.05f);
+		if (hovering && textToggle.opened == false) size = God.ease(size, bigSize, 400f * Time.deltaTime);
+		else size = God.ease(size, smallSize, 400f * Time.deltaTime);
 
 		t.localScale = new Vector3(size, size, size);
 	}
 
-	public void OnPointerEnter(PointerEventData e) {
-		hovering = true;
+	public void toggle() {
+		textToggle.opened = !textToggle.opened;
 	}
 
-	public void OnPointerExit(PointerEventData e) {
-		hovering = false;
-	}
-
-	public void OnPointerClick(PointerEventData e) {
-		toggle.opened = !toggle.opened;
+	IEnumerator forgetHover() {
+		while (true) {
+			yield return new WaitForSeconds(0.5f);
+			hovering = false;
+		}
 	}
 }
