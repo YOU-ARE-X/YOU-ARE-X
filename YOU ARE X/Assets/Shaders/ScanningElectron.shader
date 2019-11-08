@@ -1,10 +1,12 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 Shader "Custom/ScanningElectron" {
     Properties {
         [Header(General Settings)] 
-        _DetectorDirection ("Detector Direction", Vector) = (1.0,-2.0,1.0)
+        _DetectorDirection ("Detector Direction", Vector) = (1.0, -1.0, 0.0, 0.0)
         [Toggle] _ParallaxEnable("Parallax Enable", Float) = 0
         _ParallaxStrength ("Parallax Strength", Range (0.0, 2.0)) = 0.4
         _NormalStrength ("Normal Strength", Range (0.0, 2.0)) = 1.0
@@ -152,7 +154,7 @@ Shader "Custom/ScanningElectron" {
                 // hunt for the intersection of the incoming ray with the depth-mapped face
                 // iterate through height slices from 0.0 to -1.0
 
-                const int layerCount = 16;
+                const int layerCount = 32;
                 
                 float2 layerUVDelta = viewDirectionTangent.xy * _ParallaxStrength / ((float) layerCount);
                 float2 layerUVCurrent = uv;
@@ -221,9 +223,17 @@ Shader "Custom/ScanningElectron" {
             }
 
             fixed4 frag(v2f i) : SV_Target {
-                float3 detectorDirection = normalize(_DetectorDirection.xyz);
+                float3 cameraLeft = normalize(UNITY_MATRIX_IT_MV[0].xyz);
+                float3 cameraUp = normalize(UNITY_MATRIX_IT_MV[1].xyz);
+                float3 cameraFront = normalize(UNITY_MATRIX_IT_MV[2].xyz);
+
+                float3 detectorDirection = normalize(
+                    _DetectorDirection.x * cameraFront + 
+                    _DetectorDirection.y * cameraUp +
+                    _DetectorDirection.z * cameraLeft
+                );
+
                 float3 viewDirection = normalize(_WorldSpaceCameraPos - i.posWorld.xyz);
-                //float3 viewDirection = normalize(UNITY_MATRIX_IT_MV[2].xyz);
 
                 // must re-normalize because interpolation doesn't produce vectors with identical length
                 float3 normalWorld = normalize(i.normalWorld);

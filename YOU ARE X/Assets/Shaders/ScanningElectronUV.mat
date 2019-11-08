@@ -68,15 +68,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmountCoarse: 0.56
-    - _AmountFine: 0.07
-    - _AmountMedium: 0.13
+    - _AmountCoarse: 1.13
+    - _AmountFine: 0.08
+    - _AmountMedium: 0.34
     - _Blend2: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistCoarse: 0.25
-    - _DistMedium: 0.14
+    - _DistCoarse: 3.47
+    - _DistMedium: 2.21
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -87,17 +87,17 @@ Material:
     - _NormalStrength: 1
     - _NormalTexEnable: 1
     - _OcclusionStrength: 1
-    - _OffsetHeight: 0.99
+    - _OffsetHeight: 0.76
     - _Parallax: 0.02
     - _ParallaxEnable: 1
     - _ParallaxHeight: 0.46
     - _ParallaxSamples: 16
-    - _ParallaxStrength: 0.57
+    - _ParallaxStrength: 0
     - _Prop1: 0
-    - _Scale: 4.4
-    - _ScaleCoarse: 0.83
-    - _ScaleFine: 4
-    - _ScaleMedium: 3
+    - _Scale: 2.5
+    - _ScaleCoarse: 1.56
+    - _ScaleFine: 15.2
+    - _ScaleMedium: 6.88
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -117,6 +117,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DetectorDirection: {r: -2.2, g: -2, b: 0, a: 0}
+    - _DetectorDirection: {r: 3.67, g: -2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MyVector: {r: 0, g: 0, b: 0, a: 0}
