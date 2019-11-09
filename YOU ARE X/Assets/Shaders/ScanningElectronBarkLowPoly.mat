@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: ScanningElectronBarkLowPoly
   m_Shader: {fileID: 4800000, guid: 57eee7d29281e4ea9b2017dba78821af, type: 3}
-  m_ShaderKeywords: _PARALLAXENABLE_ON _STATICTEXENABLE_ON
+  m_ShaderKeywords: _STATICTEXENABLE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -82,8 +82,8 @@ Material:
     - _OcclusionStrength: 1
     - _OffsetHeight: 0
     - _Parallax: 0.02
-    - _ParallaxEnable: 1
-    - _ParallaxStrength: 0.01
+    - _ParallaxEnable: 0
+    - _ParallaxStrength: 0
     - _Scale: 10
     - _ScaleCoarse: 0.4
     - _ScaleFine: 60
