@@ -1,13 +1,15 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 Shader "Custom/ScanningElectron" {
     Properties {
         [Header(General Settings)] 
-        _DetectorDirection ("Detector Direction", Vector) = (1.0,-2.0,1.0)
+        [Toggle] _DetectorDirectionRelativeEnable("Detector Direction Relative to Camera", Float) = 1
+        _DetectorDirection ("Detector Direction", Vector) = (1.0, -1.0, 0.0, 0.0)
         [Toggle] _ParallaxEnable("Parallax Enable", Float) = 0
         _ParallaxStrength ("Parallax Strength", Range (0.0, 2.0)) = 0.4
-        _NormalStrength ("Normal Strength", Range (0.0, 2.0)) = 1.0
         [Header(Static Texture Settings)] 
         [Toggle] _StaticTexEnable("Enable", Float) = 0
         _NormalTex ("Normal Texture", 2D) = "" {}
@@ -23,6 +25,7 @@ Shader "Custom/ScanningElectron" {
         _AmountMedium    ("Amount Medium", Range (0.0, 5.0)) = 0.1
         _AmountFine      ("Amount Fine", Range (0.0, 5.0)) = 0.02
         _OffsetHeight    ("Offset", Range (-2.0, 2.0)) = 0.0
+        _NormalStrength ("Normal Strength", Range (0.0, 2.0)) = 1.0
     }
     SubShader {
 
@@ -31,8 +34,6 @@ Shader "Custom/ScanningElectron" {
 
         Pass {
             CGPROGRAM
-// Upgrade NOTE: excluded shader from DX11; has structs without semantics (struct v2f members binormalWorld)
-#pragma exclude_renderers d3d11
 
             #pragma vertex vert
             #pragma fragment frag
@@ -40,6 +41,7 @@ Shader "Custom/ScanningElectron" {
             #include "ClassicNoise2D.hlsl"
 
             uniform float3 _DetectorDirection;
+            uniform float _DetectorDirectionRelativeEnable;
             uniform float _ParallaxEnable;
             uniform float _ParallaxStrength;
             uniform float _NormalStrength;
@@ -152,7 +154,7 @@ Shader "Custom/ScanningElectron" {
                 // hunt for the intersection of the incoming ray with the depth-mapped face
                 // iterate through height slices from 0.0 to -1.0
 
-                const int layerCount = 16;
+                const int layerCount = 32;
                 
                 float2 layerUVDelta = viewDirectionTangent.xy * _ParallaxStrength / ((float) layerCount);
                 float2 layerUVCurrent = uv;
@@ -221,9 +223,28 @@ Shader "Custom/ScanningElectron" {
             }
 
             fixed4 frag(v2f i) : SV_Target {
-                float3 detectorDirection = normalize(_DetectorDirection.xyz);
+                float3 detectorDirection;
+
+                if(_DetectorDirectionRelativeEnable != 0) {
+                    // set detector direction relative to camera
+                    // x maps to camera front vector
+                    // y maps to camera up vector
+                    // z maps to camera left vector
+                    float3 cameraLeft = normalize(UNITY_MATRIX_IT_MV[0].xyz);
+                    float3 cameraUp = normalize(UNITY_MATRIX_IT_MV[1].xyz);
+                    float3 cameraFront = normalize(UNITY_MATRIX_IT_MV[2].xyz);
+
+                    detectorDirection = normalize(
+                        _DetectorDirection.x * cameraFront + 
+                        _DetectorDirection.y * cameraUp +
+                        _DetectorDirection.z * cameraLeft
+                    );
+                } else {
+                    // set detector direction as a world space vector
+                    detectorDirection = normalize(_DetectorDirection.xyz);
+                }
+                
                 float3 viewDirection = normalize(_WorldSpaceCameraPos - i.posWorld.xyz);
-                //float3 viewDirection = normalize(UNITY_MATRIX_IT_MV[2].xyz);
 
                 // must re-normalize because interpolation doesn't produce vectors with identical length
                 float3 normalWorld = normalize(i.normalWorld);
