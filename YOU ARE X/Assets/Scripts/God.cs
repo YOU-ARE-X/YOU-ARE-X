@@ -17,10 +17,130 @@ public class God : MonoBehaviour {
 
 	private List<Element> elements = new List<Element>();
 	private List<ElementScene> scenes = new List<ElementScene>();
-	private Element[] selectElements = new Element[6];
+	private Element[] selectElements = new Element[5];
 	private static Random rng = new Random();
 
-	private string[] lines = new string[]{"Borium","Water","Dirt","Nitrogen"};
+	private string[] lines = new string[]
+	{
+		"Hydrogen",
+		"Helium",
+		"Lithium",
+		"Beryllium",
+		"Boron",
+		"Carbon",
+		"Nitrogen",
+		"Oxygen",
+		"Fluorine",
+		"Neon",
+		"Sodium",
+		"Magnesium",
+		"Aluminum",
+		"Silicon",
+		"Phosphorus",
+		"Sulfur",
+		"Chlorine",
+		"Argon",
+		"Potassium",
+		"Calcium",
+		"Scandium",
+		"Titanium",
+		"Vanadium",
+		"Chromium",
+		"Manganese",
+		"Iron",
+		"Cobalt",
+		"Nickel",
+		"Copper",
+		"Zinc",
+		"Gallium",
+		"Germanium",
+		"Arsenic",
+		"Selenium",
+		"Bromine",
+		"Krypton",
+		"Rubidium",
+		"Strontium",
+		"Yttrium",
+		"Zirconium",
+		"Niobium",
+		"Molybdenum",
+		"Technetium",
+		"Ruthenium",
+		"Rhodium",
+		"Palladium",
+		"Silver",
+		"Cadmium",
+		"Indium",
+		"Tin",
+		"Antimony",
+		"Tellurium",
+		"Iodine",
+		"Xenon",
+		"Cesium",
+		"Barium",
+		"Lanthanum",
+		"Cerium",
+		"Praseodymium",
+		"Neodymium",
+		"Promethium",
+		"Samarium",
+		"Europium",
+		"Gadolinium",
+		"Terbium",
+		"Dysprosium",
+		"Holmium",
+		"Erbium",
+		"Thulium",
+		"Ytterbium",
+		"Lutetium",
+		"Hafnium",
+		"Tantalum",
+		"Tungsten",
+		"Rhenium",
+		"Osmium",
+		"Iridium",
+		"Platinum",
+		"Gold",
+		"Mercury",
+		"Thallium",
+		"Lead",
+		"Bismuth",
+		"Polonium",
+		"Astatine",
+		"Radon",
+		"Francium",
+		"Radium",
+		"Actinium",
+		"Thorium",
+		"Protactinium",
+		"Uranium",
+		"Neptunium",
+		"Plutonium",
+		"Americium",
+		"Curium",
+		"Berkelium",
+		"Californium",
+		"Einsteinium",
+		"Fermium",
+		"Mendelevium",
+		"Nobelium",
+		"Lawrencium",
+		"Rutherfordium",
+		"Dubnium",
+		"Seaborgium",
+		"Bohrium",
+		"Hassium",
+		"Meitnerium",
+		"Darmstadtium",
+		"Roentgenium",
+		"Copernicium",
+		"Nihonium",
+		"Flerovium",
+		"Moscovium",
+		"Livermorium",
+		"Tennessine",
+		"Oganesson"
+	};
 	private string longLines;
 	private Element human;
 
@@ -37,47 +157,22 @@ public class God : MonoBehaviour {
 		elements.Add(new Element("Silicon"));
 		elements[0].createScene("400", 1);
 		elements[0].createScene("400", 2);
-		elements[0].createScene("400", 3);
 
-		elements.Add(new Element("Methane"));
+		elements.Add(new Element("Bark"));
 		elements[1].createScene("400", 1);
 		elements[1].createScene("400", 2);
 
-		elements.Add(new Element("Helium"));
+		elements.Add(new Element("Salt"));
 		elements[2].createScene("400", 1);
 		elements[2].createScene("400", 2);
 
-		elements.Add(new Element("Water"));
+		elements.Add(new Element("Copper"));
 		elements[3].createScene("400", 1);
 		elements[3].createScene("400", 2);
-		elements[3].createScene("400", 3);
 
-		elements.Add(new Element("Carbon"));
+		elements.Add(new Element("Chemical"));
 		elements[4].createScene("400", 1);
 		elements[4].createScene("400", 2);
-
-		elements.Add(new Element("Gold"));
-		elements[5].createScene("400", 1);
-		elements[5].createScene("400", 2);
-		elements[5].createScene("400", 3);
-
-		elements.Add(new Element("Bacteria"));
-		elements[6].createScene("400", 1);
-		elements[6].createScene("400", 2);
-		elements[6].createScene("400", 3);
-
-		elements.Add(new Element("Copper"));
-		elements[7].createScene("400", 1);
-		elements[7].createScene("400", 2);
-
-		elements.Add(new Element("Pesticide"));
-		elements[8].createScene("400", 1);
-		elements[8].createScene("400", 2);
-
-		elements.Add(new Element("Bark"));
-		elements[9].createScene("400", 1);
-		elements[9].createScene("400", 2);
-		elements[9].createScene("400", 3);
 
 		human = new Element("Human");
 		human.createScene("1", 1);
@@ -129,6 +224,7 @@ public class God : MonoBehaviour {
 
 		for (int i = 0; i < 200; i++) {
 			longLines += "\n" + lines[Random.Range(0, lines.Length)];
+			Debug.Log(lines[Random.Range(0, lines.Length)]);
 		}
 
 		longLines += "\n" + xText;
@@ -183,7 +279,7 @@ public class God : MonoBehaviour {
 		RectTransform rect = x.gameObject.GetComponent<RectTransform>();
 		rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -950);
 		while(rect.anchoredPosition.y < 972.9f) {
-			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, ease(rect.anchoredPosition.y, 973, 1f));
+			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, ease(rect.anchoredPosition.y, 973, 2f));
 			yield return new WaitForSeconds(0.001f);
 		}
 		yield return new WaitForSeconds(10);
