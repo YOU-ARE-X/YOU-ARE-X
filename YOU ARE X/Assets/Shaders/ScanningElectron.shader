@@ -6,6 +6,7 @@
 Shader "Custom/ScanningElectron" {
     Properties {
         [Header(General Settings)] 
+        _Reflectivity ("Reflectivity", Range (0.0, 1.0)) = 1.0
         [Toggle] _DetectorDirectionRelativeEnable("Detector Direction Relative to Camera", Float) = 1
         _DetectorDirection ("Detector Direction", Vector) = (1.0, -1.0, 0.0, 0.0)
         [Toggle] _ParallaxEnable("Parallax Enable", Float) = 0
@@ -40,6 +41,7 @@ Shader "Custom/ScanningElectron" {
             #include "UnityCG.cginc"
             #include "ClassicNoise2D.hlsl"
 
+            uniform float _Reflectivity;
             uniform float3 _DetectorDirection;
             uniform float _DetectorDirectionRelativeEnable;
             uniform float _ParallaxEnable;
@@ -263,7 +265,12 @@ Shader "Custom/ScanningElectron" {
                 
                 float3 normalMapped = normalize(normalMap(normalWorld, tangentWorld, binormalWorld, uvMapped));
 
-                fixed brightness = 1.0 / (dot(normalMapped, detectorDirection) + 2.0);
+                fixed brightness = _Reflectivity * 1.0 / (dot(normalMapped, detectorDirection) + 1.0);
+
+                // calculation above can result in +infinity, clamp back to a reasonable range
+                if(brightness > 1.0) {
+                    brightness = 1.0;
+                }
 
                 return fixed4(brightness, brightness, brightness, 1.0);
             }
