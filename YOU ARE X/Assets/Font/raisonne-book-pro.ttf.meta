@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: bb927447c8f834b5e97848098f01369a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Raisonne Pro
+  fontNames:
+  - Raisonne Pro
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0739f133ec5db449c8714c2b4fd4850c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -12,8 +12,9 @@ namespace Assets.Scripts.Cam.Effects {
 
         public float blend = 0.25f;
         public bool tanh = true;
+        public float slope = 1.0f;
 
-		private Material material {
+        private Material material {
 			get {
 				if (m_material == null) {
 					shader = Shader.Find("Kirsch");
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Cam.Effects {
 
             material.SetFloat("blend", blend);
             material.SetInt("usetanh", (tanh ? 1 : 0));
+            material.SetFloat("slope", slope);
 
             if (material) Graphics.Blit(src, dest, material);
 		}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: Cells
+  m_Name: Melt
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 114583571270569172}
@@ -39,7 +39,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 0
   fastMode:
     overrideState: 0
     value: 0
@@ -107,14 +107,14 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   saturation:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 30
   brightness:
     overrideState: 1
     value: 0
   postExposure:
     overrideState: 1
-    value: 0
+    value: -1.45
   contrast:
     overrideState: 0
     value: 0
@@ -147,10 +147,10 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 0.9411992, z: 0.43324345, w: 0}
+    value: {x: 0.846478, y: 0.84303254, z: 1, w: -0.25316453}
   gamma:
     overrideState: 1
-    value: {x: 0.98214364, y: 0.99896455, z: 1, w: 0}
+    value: {x: 1, y: 0.7908797, z: 0.64532673, w: 0}
   gain:
     overrideState: 1
     value: {x: 1, y: 0.98813426, z: 0.9881828, w: 0}
@@ -1381,7 +1381,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0
+    value: 0.422
   smoothness:
     overrideState: 1
     value: 0.952
@@ -1419,10 +1419,10 @@ MonoBehaviour:
     value: 0
   intensity:
     overrideState: 1
-    value: 1
+    value: 0
   size:
     overrideState: 1
-    value: 0.88
+    value: 2.58
   lumContrib:
     overrideState: 1
     value: 0

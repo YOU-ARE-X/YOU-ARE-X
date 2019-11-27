@@ -15,6 +15,7 @@
             // parameters set by script
             float blend;
             int usetanh;
+            float slope;
 
             float luma(fixed3 color) {
                 return dot(color, fixed3(0.8, 0.8, 0.8));
@@ -93,10 +94,14 @@
                 return 0.5 * (tanh(2.0 * x - 1.0) + 1.0);
             }
 
+            float tanhNormalizedSloped(float x, float s) {
+                return 0.5 * (tanh(2.0 * s * (x - 0.5)) + 1.0);
+            }
+
 	  		fixed4 frag (v2f_img i) : COLOR {
                 float edge = blend * kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy) + (1.0 - blend) * float3(1.0, 1.0, 1.0) * luma(tex2D(_MainTex, i.uv));
                 if(usetanh) {
-                    edge = tanhNormalized(edge);
+                    edge = tanhNormalizedSloped(edge, slope);
                 }
 				return fixed4(edge, edge, edge, 1.0);
 	  		}
