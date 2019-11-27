@@ -4,9 +4,9 @@ namespace Assets.Scripts.Cam.Effects {
 	
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(UnityEngine.Camera))]
-	[AddComponentMenu("Image Effects/Custom/Kirsch")]
+	[AddComponentMenu("Image Effects/Custom/KirschRGB")]
 
-	public class Kirsch : MonoBehaviour {
+	public class KirschRGB : MonoBehaviour {
 		private Material m_material;
 		private Shader shader;
 
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Cam.Effects {
         private Material material {
 			get {
 				if (m_material == null) {
-					shader = Shader.Find("Kirsch");
+					shader = Shader.Find("KirschRGB");
 					m_material = new Material(shader) {hideFlags = HideFlags.DontSave};
 				}
 				return m_material;

@@ -1,4 +1,4 @@
-﻿Shader "Kirsch" {
+﻿Shader "KirschRGB" {
 	Properties {
 	 	_MainTex ("", 2D) = "white" {}
 	}
@@ -15,21 +15,25 @@
             // parameters set by script
             float blend;
             int usetanh;
-            float slope;
-
-            float luma(fixed3 color) {
-                return dot(color, fixed3(0.8, 0.8, 0.8));
-            }
+            float slope;   
             
-            float convolve(sampler2D _Tex, float2 loc, float2 delta, float3x3 kernel) {
-                return kernel[0][0] * luma(tex2D(_Tex, loc + float2(- delta.x, - delta.y))) + kernel[0][1] * luma(tex2D(_Tex, loc + float2(0, - delta.y))) + kernel[0][2] * luma(tex2D(_Tex, loc + float2(+ delta.x, - delta.y))) +
-                       kernel[1][0] * luma(tex2D(_Tex, loc + float2(- delta.x,         0))) + kernel[1][1] * luma(tex2D(_Tex, loc + float2(0,         0))) + kernel[1][2] * luma(tex2D(_Tex, loc + float2(+ delta.x,         0))) +
-                       kernel[2][0] * luma(tex2D(_Tex, loc + float2(- delta.x, + delta.y))) + kernel[2][1] * luma(tex2D(_Tex, loc + float2(0, + delta.y))) + kernel[2][2] * luma(tex2D(_Tex, loc + float2(+ delta.x, + delta.y)));
+            float3 convolve(sampler2D _Tex, float2 loc, float2 delta, float3x3 kernel) {
+                return kernel[0][0] * tex2D(_Tex, loc + float2(- delta.x, - delta.y)) + kernel[0][1] * tex2D(_Tex, loc + float2(0, - delta.y)) + kernel[0][2] * tex2D(_Tex, loc + float2(+ delta.x, - delta.y)) +
+                       kernel[1][0] * tex2D(_Tex, loc + float2(- delta.x,         0)) + kernel[1][1] * tex2D(_Tex, loc + float2(0,         0)) + kernel[1][2] * tex2D(_Tex, loc + float2(+ delta.x,         0)) +
+                       kernel[2][0] * tex2D(_Tex, loc + float2(- delta.x, + delta.y)) + kernel[2][1] * tex2D(_Tex, loc + float2(0, + delta.y)) + kernel[2][2] * tex2D(_Tex, loc + float2(+ delta.x, + delta.y));
+            }
+
+            float3 max3(float3 a, float3 b) {
+                return float3(
+                    max(a.r, b.r),
+                    max(a.g, b.g),
+                    max(a.b, b.b)
+                );
             }
 
             // can be rewritten to be more efficient by only computing the luma values once rather than for every kernel
-            float kirsch(sampler2D _Tex, float2 loc, float2 delta) {
-                float temp;
+            float3 kirsch(sampler2D _Tex, float2 loc, float2 delta) {
+                float3 temp;
                 
                 temp = convolve(_MainTex, loc, delta,
                     float3x3(
@@ -38,28 +42,28 @@
                        -3.0, -3.0, -3.0 
                     )
                 );
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = max3(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        -3.0, +5.0, +5.0,
                        -3.0, +0.0, +5.0,
                        -3.0, -3.0, -3.0 
                     )
                 ));
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = max3(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        -3.0, -3.0, +5.0,
                        -3.0, +0.0, +5.0,
                        -3.0, -3.0, +5.0 
                     )
                 ));
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = max3(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        -3.0, -3.0, -3.0,
                        -3.0, +0.0, +5.0,
                        -3.0, +5.0, +5.0 
                     )
                 ));
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = max3(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        -3.0, -3.0, -3.0,
                        -3.0, +0.0, -3.0,
@@ -73,14 +77,14 @@
                        +5.0, +5.0, -3.0 
                     )
                 ));
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = max3(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        +5.0, -3.0, -3.0,
                        +5.0, +0.0, -3.0,
                        +5.0, -3.0, -3.0 
                     )
                 ));
-                temp = max(temp, convolve(_MainTex, loc, delta,
+                temp = max3(temp, convolve(_MainTex, loc, delta,
                     float3x3(
                        +5.0, +5.0, -3.0,
                        +5.0, +0.0, -3.0,
@@ -98,12 +102,20 @@
                 return 0.5 * (tanh(2.0 * s * (x - 0.5)) + 1.0);
             }
 
+            float3 tanhNormalizedSloped3(float3 x, float s) {
+                return float3(
+                    tanhNormalizedSloped(x.r, s), 
+                    tanhNormalizedSloped(x.g, s), 
+                    tanhNormalizedSloped(x.b, s)
+                 );
+            }
+
 	  		fixed4 frag (v2f_img i) : COLOR {
-                float edge = blend * kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy) + (1.0 - blend) * float3(1.0, 1.0, 1.0) * luma(tex2D(_MainTex, i.uv));
+                float3 edge = blend * kirsch(_MainTex, i.uv, _MainTex_TexelSize.xy) + (1.0 - blend) * tex2D(_MainTex, i.uv);
                 if(usetanh) {
-                    edge = tanhNormalizedSloped(edge, slope);
+                    edge = tanhNormalizedSloped3(edge, slope);
                 }
-				return fixed4(edge, edge, edge, 1.0);
+				return fixed4(edge, 1.0);
 	  		}
 	  		ENDCG
 	 	}
