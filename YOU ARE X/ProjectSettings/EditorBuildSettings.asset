@@ -6,6 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 40744fa5d91731f4e901955a57bb9d70
+  - enabled: 1
     path: Assets/Scenes/Loader.unity
     guid: d560f846351f8b243ab1d8314aaa9f85
+  - enabled: 1
+    path: Assets/Scenes/Copper-1.unity
+    guid: f2945e40743bbd847bfcac7c8802d284
+  - enabled: 1
+    path: Assets/Scenes/Copper-2.unity
+    guid: 12b4fb08698419a449e91bb8a0e8bb91
+  - enabled: 1
+    path: Assets/Scenes/Salt-1.unity
+    guid: bc0887e9d593a924f83a9192c44df03e
+  - enabled: 1
+    path: Assets/Scenes/Salt-2.unity
+    guid: 182bdaddc6d130144b07dc765962c9d3
+  - enabled: 1
+    path: Assets/Scenes/Wood-1.unity
+    guid: 582a6f28e53a34d5db85014ef5cdb172
+  - enabled: 1
+    path: Assets/Scenes/Wood-2.unity
+    guid: 408a3ed0819222848995a54a860dd21a
   m_configObjects: {}
