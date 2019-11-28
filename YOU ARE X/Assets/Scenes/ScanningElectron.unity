@@ -778,6 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blend: 0.21
   tanh: 1
+  slope: 1
 --- !u!114 &1187112199
 MonoBehaviour:
   m_ObjectHideFlags: 0
