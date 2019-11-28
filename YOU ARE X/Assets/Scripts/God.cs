@@ -144,22 +144,17 @@ public class God : MonoBehaviour {
 	private string longLines;
 	private Element human;
 
-	private Text you;
-	private Text are;
-	private Text x;
-
-	private CanvasGroup UI;
-
-	void OnEnable() {
-		SceneManager.sceneLoaded += OnSceneLoaded;
-	}
+	public Text you;
+	public Text are;
+	public Text x;
+	public CanvasGroup t;
+	public CanvasGroup ui;
+	public CanvasGroup blocker;
 
 	void Start() {
-		if (GameObject.Find("God"))
-
 		DontDestroyOnLoad(this.gameObject);
 
-		//create all elements (name) with scenes (name, zoom, sequence)
+		//create all elements (name) with scenes (zoom, sequence)
 		elements.Add(new Element("Wood"));
 		elements[0].createScene("400", 1);
 		elements[0].createScene("400", 2);
@@ -208,13 +203,15 @@ public class God : MonoBehaviour {
 					scenes.Add(randomElement.scenes[i]);
 					break;
 				}
-			} 
+			}
 		}
 		youAreText(scenes[sceneReference]);
 	}
 
 	//text sequence
 	private void youAreText(ElementScene s) {
+		blocker.alpha = 1f;
+		t.alpha = 1f;
 		//make text invisible
 		if (you) you.color = new Color(255,255,255,0);
 		if (are) are.color = new Color(255,255,255,0);
@@ -235,9 +232,7 @@ public class God : MonoBehaviour {
 
 	//end scene, and load Loader scene
 	private void endScene() {
-		UI = GameObject.Find("UI").GetComponent<CanvasGroup>();
-		UI.alpha = 0f;
-
+		ui.alpha = 0f;
 		SceneManager.LoadScene(1); //loader ID in build settings
 		sceneReference++;
 
@@ -251,7 +246,10 @@ public class God : MonoBehaviour {
 
 	//load scene and measures time to switch scene
 	private void loadScene(ElementScene s) {
+		blocker.alpha = 0f;
+		t.alpha = 0f;
 		SceneManager.LoadScene(s.name);
+		loadUI(s);
 		
 		if (s.name == "Human") return;
 		StartCoroutine(time());
@@ -259,8 +257,7 @@ public class God : MonoBehaviour {
 
 	//update UI on scene load
 	private void loadUI(ElementScene s) {
-		//UI = GameObject.Find("UI").GetComponent<CanvasGroup>();
-		UI.alpha = 1f;
+		ui.alpha = 1f;
 
 		Text z = GameObject.Find("UI/Zoom").GetComponent<Text>();
 		Text e = GameObject.Find("UI/Element").GetComponent<Text>();
@@ -291,16 +288,6 @@ public class God : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 		loadScene(s);
 	}
-
-	void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        you = GameObject.Find("Canvas/You").GetComponent<Text>();
-		are = GameObject.Find("Canvas/Are").GetComponent<Text>();
-		x = GameObject.Find("Canvas/X").GetComponent<Text>();
-
-		UI = GameObject.Find("UI").GetComponent<CanvasGroup>();
-
-		//loadUI(s);
-    }
 
 	//statics
 	public static float ease(float val, float target, float ease) {

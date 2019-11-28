@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class UIFollowCamera : MonoBehaviour {
 
+	public float distance = 1f;
+
     void Update() {
-        Vector3 targetPosition = Camera.main.transform.position + (Camera.main.transform.forward * 3);
+        Vector3 targetPosition = Camera.main.transform.position + (Camera.main.transform.forward + new Vector3(0, 0, distance));
 		transform.position = targetPosition;
 		transform.rotation = Camera.main.transform.rotation;
     }
