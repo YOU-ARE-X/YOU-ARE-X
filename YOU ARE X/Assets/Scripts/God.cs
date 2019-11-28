@@ -13,11 +13,11 @@ using UnityEngine.UI;
 public class God : MonoBehaviour {
 
 	private int sceneReference = 0;
-	private int secondsPerScene = 4;
+	private int secondsPerScene = 5;
 
 	private List<Element> elements = new List<Element>();
 	private List<ElementScene> scenes = new List<ElementScene>();
-	private Element[] selectElements = new Element[5];
+	private Element[] selectElements = new Element[4];
 	private static Random rng = new Random();
 
 	private string[] lines = new string[]
@@ -144,31 +144,37 @@ public class God : MonoBehaviour {
 	private string longLines;
 	private Element human;
 
-	public Scene loader;
+	private Text you;
+	private Text are;
+	private Text x;
 
-	public Text you;
-	public Text are;
-	public Text x;
+	private CanvasGroup UI;
+
+	void OnEnable() {
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
 
 	void Start() {
+		if (GameObject.Find("God"))
+
 		DontDestroyOnLoad(this.gameObject);
 
 		//create all elements (name) with scenes (name, zoom, sequence)
 		elements.Add(new Element("Wood"));
+		elements[0].createScene("400", 1);
+		elements[0].createScene("400", 2);
+
+		elements.Add(new Element("Salt"));
 		elements[1].createScene("400", 1);
 		elements[1].createScene("400", 2);
 
-		elements.Add(new Element("Salt"));
+		elements.Add(new Element("Copper"));
 		elements[2].createScene("400", 1);
 		elements[2].createScene("400", 2);
 
-		elements.Add(new Element("Copper"));
+		elements.Add(new Element("Helium"));
 		elements[3].createScene("400", 1);
 		elements[3].createScene("400", 2);
-
-		elements.Add(new Element("Chemical"));
-		elements[4].createScene("400", 1);
-		elements[4].createScene("400", 2);
 
 		human = new Element("Human");
 		human.createScene("1", 1);
@@ -204,7 +210,6 @@ public class God : MonoBehaviour {
 				}
 			} 
 		}
-
 		youAreText(scenes[sceneReference]);
 	}
 
@@ -220,7 +225,6 @@ public class God : MonoBehaviour {
 
 		for (int i = 0; i < 200; i++) {
 			longLines += "\n" + lines[Random.Range(0, lines.Length)];
-			Debug.Log(lines[Random.Range(0, lines.Length)]);
 		}
 
 		longLines += "\n" + xText;
@@ -231,7 +235,10 @@ public class God : MonoBehaviour {
 
 	//end scene, and load Loader scene
 	private void endScene() {
-		SceneManager.LoadScene(loader.name);
+		UI = GameObject.Find("UI").GetComponent<CanvasGroup>();
+		UI.alpha = 0f;
+
+		SceneManager.LoadScene(1); //loader ID in build settings
 		sceneReference++;
 
 		if (sceneReference >= scenes.Count) {
@@ -244,14 +251,17 @@ public class God : MonoBehaviour {
 
 	//load scene and measures time to switch scene
 	private void loadScene(ElementScene s) {
-		SceneManager.LoadScene(SceneManager.GetSceneByName(s.name).name);
-		loadUI(s);
+		SceneManager.LoadScene(s.name);
+		
 		if (s.name == "Human") return;
 		StartCoroutine(time());
 	}
 
 	//update UI on scene load
 	private void loadUI(ElementScene s) {
+		//UI = GameObject.Find("UI").GetComponent<CanvasGroup>();
+		UI.alpha = 1f;
+
 		Text z = GameObject.Find("UI/Zoom").GetComponent<Text>();
 		Text e = GameObject.Find("UI/Element").GetComponent<Text>();
 
@@ -274,13 +284,23 @@ public class God : MonoBehaviour {
 		x.color = new Color(255,255,255,255);
 		RectTransform rect = x.gameObject.GetComponent<RectTransform>();
 		rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -950);
-		while(rect.anchoredPosition.y < 972.9f) {
-			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, ease(rect.anchoredPosition.y, 973, 2f));
+		while(rect.anchoredPosition.y < 973f) {
+			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, ease(rect.anchoredPosition.y, 975, 2f));
 			yield return new WaitForSeconds(0.001f);
 		}
-		yield return new WaitForSeconds(10);
+		yield return new WaitForSeconds(2);
 		loadScene(s);
 	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        you = GameObject.Find("Canvas/You").GetComponent<Text>();
+		are = GameObject.Find("Canvas/Are").GetComponent<Text>();
+		x = GameObject.Find("Canvas/X").GetComponent<Text>();
+
+		UI = GameObject.Find("UI").GetComponent<CanvasGroup>();
+
+		//loadUI(s);
+    }
 
 	//statics
 	public static float ease(float val, float target, float ease) {
