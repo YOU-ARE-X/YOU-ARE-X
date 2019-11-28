@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class God : MonoBehaviour {
 
 	private int sceneReference = 0;
-	private int secondsPerScene = 5;
+	private int secondsPerScene = 4;
 
 	private List<Element> elements = new List<Element>();
 	private List<ElementScene> scenes = new List<ElementScene>();
@@ -154,11 +154,7 @@ public class God : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 
 		//create all elements (name) with scenes (name, zoom, sequence)
-		elements.Add(new Element("Silicon"));
-		elements[0].createScene("400", 1);
-		elements[0].createScene("400", 2);
-
-		elements.Add(new Element("Bark"));
+		elements.Add(new Element("Wood"));
 		elements[1].createScene("400", 1);
 		elements[1].createScene("400", 2);
 
