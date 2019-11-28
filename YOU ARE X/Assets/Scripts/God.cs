@@ -246,7 +246,6 @@ public class God : MonoBehaviour {
 
 	//load scene and measures time to switch scene
 	private void loadScene(ElementScene s) {
-		blocker.alpha = 0f;
 		t.alpha = 0f;
 		SceneManager.LoadScene(s.name);
 		loadUI(s);
@@ -267,7 +266,20 @@ public class God : MonoBehaviour {
 	}
 
 	IEnumerator time() {
+		yield return new WaitForSeconds(1f);
+
+		blocker.alpha = 0f;
+
 		yield return new WaitForSeconds(secondsPerScene);
+
+		float a = blocker.alpha;
+
+		while (a < 1f) {
+			yield return new WaitForSeconds(0.01f);
+			a += 0.01f;
+			blocker.alpha = a;
+		}
+
 		endScene();
 	}
 
