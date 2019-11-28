@@ -19,7 +19,12 @@
             #include "ClassicNoise3D.hlsl"
 
 	  		uniform sampler2D _MainTex;
-            uniform sampler2D _SourceTex;
+            uniform sampler2D _SourceTex; 
+
+            /*
+            uniform float4x4 _VPCurrentInverse;
+            uniform float4x4 _VPPast;
+            */
 
             int antiAliasing;
             float scaleDistortion;
@@ -33,6 +38,18 @@
             float amountTurbulence;
 
             float4 _MainTex_TexelSize;
+
+            /*
+
+            float2 cameraDeltaUV(float2 screenSpaceUV) {
+                float3 screenSpaceCurrent = float3(screenSpaceUV * 2.0 - float2(1.0, 1.0), 1.0);
+                float4 worldSpaceCurrent = float4(mul(_VPCurrentInverse, screenSpaceCurrent).xyz, 1.0);
+                float3 screenSpacePrevious = mul(_VPPast, worldSpaceCurrent);
+
+                return screenSpaceCurrent.xy - screenSpacePrevious.xy;
+            }
+
+            */
 
             float2 distort(float2 coord) {                    
                 float2 noiseDistortion = float2(
@@ -64,9 +81,8 @@
             }
 
 	  		fixed4 frag(v2f_img i) : COLOR {
-            
                 float2 delta = distort(i.uv);
-                float2 coord = i.uv;
+                float2 coord = i.uv;// - 2.0 * cameraDeltaUV(i.uv);
                 float norm = length(i.uv);
 
                 fixed4 result = 0;
@@ -76,6 +92,9 @@
                 }
 
                 return result / (1.0 * antiAliasing) * exp(- unity_DeltaTime.z - 0.02);
+
+                //return float4(cameraDeltaUV(i.uv), 0.0, 1.0);
+
             }
 	  		ENDCG
 	 	}

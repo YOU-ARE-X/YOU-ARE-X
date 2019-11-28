@@ -15,6 +15,18 @@ namespace Assets.Scripts.Cam.Effects {
         private RenderTexture accumTexture3;
         private Material material;
 
+        /*
+        private Camera mainCamera;
+
+        private Matrix4x4 VPCurrentInverse0;
+        private Matrix4x4 VPCurrentInverse1;
+        private Matrix4x4 VPPast0;
+        private Matrix4x4 VPPast1;
+
+        bool VPPast0Initialized = false;
+        bool VPPast1Initialized = false;
+        */
+
         bool currentTextureEye0 = false;
         bool currentTextureEye1 = false;
         bool currentEye = false;
@@ -58,6 +70,8 @@ namespace Assets.Scripts.Cam.Effects {
 
         public void OnRenderImage(RenderTexture source, RenderTexture destination) {
 
+            //mainCamera = Camera.main;
+
             // create the accumulation textures
             if (!currentEye && (accumTexture0 == null || accumTexture0.width != source.width || accumTexture0.height != source.height)) {
                 DestroyImmediate(accumTexture0);
@@ -92,12 +106,36 @@ namespace Assets.Scripts.Cam.Effects {
                 material.SetTexture("_SourceTex", source);
             }
 
+            /*
+            // capture initial past matrix
+            if (!currentEye && !VPPast0Initialized) {
+                VPPast0 = mainCamera.projectionMatrix * mainCamera.worldToCameraMatrix;
+                VPPast0Initialized = true;
+            }
+            if (currentEye && !VPPast1Initialized)
+            {
+                VPPast1 = mainCamera.projectionMatrix * mainCamera.worldToCameraMatrix;
+                VPPast1Initialized = true;
+            }
+
+            // capture current inverse matrix
+            if(!currentEye) {
+                VPCurrentInverse0 = mainCamera.projectionMatrix * mainCamera.worldToCameraMatrix;
+                VPCurrentInverse0 = VPCurrentInverse0.inverse;
+            } else {
+                VPCurrentInverse1 = mainCamera.projectionMatrix * mainCamera.worldToCameraMatrix;
+                VPCurrentInverse1 = VPCurrentInverse1.inverse;
+            }
+            */
+
             // sanitize & send shader parameters
             SanitizeShaderParameters();
             SendShaderParameters();
 
             if (!currentEye) {
                 // left eye
+                //material.SetMatrix("_VPCurrentInverse", VPCurrentInverse0);
+                //material.SetMatrix("_VPPast", VPPast0);
                 material.SetTexture("_SourceTex", source);
                 // double buffering the accumulation textures
                 if (currentTextureEye0) {
@@ -112,12 +150,13 @@ namespace Assets.Scripts.Cam.Effects {
                     Graphics.Blit(accumTexture0, destination);
                 }
 
-
                 // update the current texture for the next iteration
                 currentTextureEye0 = !currentTextureEye0;
             } else {
                 // right eye
                 // double buffering the accumulation textures
+                //material.SetMatrix("_VPCurrentInverse", VPCurrentInverse1);
+                //material.SetMatrix("_VPPast", VPPast1);
                 material.SetTexture("_SourceTex", source);
                 if (currentTextureEye1) {
                     // distort accumTexture2 and overlay source into accumTexture3
@@ -134,6 +173,15 @@ namespace Assets.Scripts.Cam.Effects {
                 // update the current texture for the next iteration
                 currentTextureEye1 = !currentTextureEye1;
             }
+
+            /*
+            // capture past matrix for next iteration
+            if (!currentEye) {
+                VPPast0 = mainCamera.projectionMatrix * mainCamera.worldToCameraMatrix;
+            } else {
+                VPPast1 = mainCamera.projectionMatrix * mainCamera.worldToCameraMatrix;
+            }
+            */
 
             // update the current eye for the next iteration
             currentEye = !currentEye;
