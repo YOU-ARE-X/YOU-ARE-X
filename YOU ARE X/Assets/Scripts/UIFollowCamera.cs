@@ -7,8 +7,9 @@ public class UIFollowCamera : MonoBehaviour {
 	public float distance = 1f;
 
     void Update() {
-        Vector3 targetPosition = Camera.main.transform.position + (Camera.main.transform.forward * distance);
+    	GameObject cam = GameObject.Find("Camera");
+        Vector3 targetPosition = cam.transform.position + (cam.transform.forward * distance);
 		transform.position = targetPosition;
-		transform.rotation = Camera.main.transform.rotation;
+		transform.rotation = cam.transform.rotation;
     }
 }
