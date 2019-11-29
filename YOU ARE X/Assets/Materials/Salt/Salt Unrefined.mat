@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 060c4a17fcb724a41a05bb9e593dfdd2, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -85,7 +85,7 @@ Material:
     - _Parallax: 0.02
     - _ParallaxEnable: 0
     - _ParallaxStrength: 0.4
-    - _Reflectivity: 1
+    - _Reflectivity: 0.85
     - _Scale: 10
     - _ScaleCoarse: 0.4
     - _ScaleFine: 60
