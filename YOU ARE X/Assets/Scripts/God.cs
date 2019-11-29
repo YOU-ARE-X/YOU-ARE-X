@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class God : MonoBehaviour {
 
 	private int sceneReference = 0;
-	private int secondsPerScene = 1;
+	private int secondsPerScene = 20;
 
 	private List<Element> elements = new List<Element>();
 	private List<ElementScene> scenes = new List<ElementScene>();
@@ -144,6 +144,7 @@ public class God : MonoBehaviour {
 
 	private string longLines;
 	private Element human;
+	private AudioSource source;
 
 	public Text you;
 	public Text are;
@@ -151,9 +152,14 @@ public class God : MonoBehaviour {
 	public CanvasGroup t;
 	public CanvasGroup ui;
 	public CanvasGroup blocker;
+	public AudioClip boops;
+	public AudioClip load;
+	public AudioClip unload;
 
 	void Start() {
 		DontDestroyOnLoad(this.gameObject);
+
+		source = GetComponent<AudioSource>();
 
 		//create all elements (name) with scenes (zoom, sequence)
 		elements.Add(new Element("Lignin"));
@@ -257,8 +263,6 @@ public class God : MonoBehaviour {
 
 	//update UI on scene load
 	private void loadUI(ElementScene s) {
-		ui.alpha = 1f;
-
 		Text z = GameObject.Find("UI/Zoom").GetComponent<Text>();
 		Text e = GameObject.Find("UI/Element").GetComponent<Text>();
 
@@ -270,8 +274,13 @@ public class God : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 
 		blocker.alpha = 0f;
+		ui.alpha = 1f;
+		source.PlayOneShot(load);
 
 		yield return new WaitForSeconds(secondsPerScene);
+
+		source.PlayOneShot(unload);
+		yield return new WaitForSeconds(6);
 
 		blocker.alpha = 1f;
 
@@ -281,6 +290,7 @@ public class God : MonoBehaviour {
 	IEnumerator textSequence(ElementScene s) {
 		yield return new WaitForSeconds(1);
 		you.color = new Color(255,255,255,255);
+		source.PlayOneShot(boops);
 		yield return new WaitForSeconds(1);
 		are.color = new Color(255,255,255,255);
 		yield return new WaitForSeconds(1);
