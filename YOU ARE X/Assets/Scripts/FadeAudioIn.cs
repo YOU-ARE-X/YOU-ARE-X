@@ -8,6 +8,7 @@ public class FadeAudioIn : MonoBehaviour {
 
 	void Start() {
 		s = GetComponent<AudioSource>();
+		s.volume = 0f;
 		StartCoroutine(FadeIn());
 	}
 

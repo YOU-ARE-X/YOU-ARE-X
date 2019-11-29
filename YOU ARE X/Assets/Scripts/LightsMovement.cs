@@ -19,7 +19,7 @@ public class LightsMovement : MonoBehaviour {
 	void Update() {
 		float r = Random.Range(0f, 1f);
 
-		if (r < 0.001f) {
+		if (r < 0.005f) {
 			if (routine != null) StopCoroutine(routine);
 			routine = StartCoroutine(Move());
 		}

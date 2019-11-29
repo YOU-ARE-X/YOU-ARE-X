@@ -30,9 +30,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Lignin-2.unity
     guid: 408a3ed0819222848995a54a860dd21a
   - enabled: 1
-    path: Assets/Scenes/Helium-2.unity
+    path: Assets/Scenes/Helium-1.unity
     guid: ea31252113843434d85dd46981570b59
   - enabled: 1
-    path: Assets/Scenes/Helium-1.unity
+    path: Assets/Scenes/Helium-2.unity
     guid: 8ff89d4e407324998a2e9f1bf964a42b
+  - enabled: 1
+    path: Assets/Scenes/Human-1.unity
+    guid: f521af9d4ff2d9a46917a544e75e3990
   m_configObjects: {}

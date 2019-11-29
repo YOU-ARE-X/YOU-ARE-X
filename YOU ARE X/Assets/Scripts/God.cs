@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class God : MonoBehaviour {
 
 	private int sceneReference = 0;
-	private int secondsPerScene = 20;
+	private int secondsPerScene = 50;
 
 	private List<Element> elements = new List<Element>();
 	private List<ElementScene> scenes = new List<ElementScene>();
@@ -257,7 +257,6 @@ public class God : MonoBehaviour {
 		SceneManager.LoadScene(s.name);
 		loadUI(s);
 		
-		if (s.name == "Human-1") return;
 		StartCoroutine(time());
 	}
 
@@ -305,6 +304,13 @@ public class God : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 
 		if (s.name != "Human-1") loadScene(s);
+		else {
+			yield return new WaitForSeconds(1f);
+			you.color = new Color(255,255,255,0);
+			are.color = new Color(255,255,255,0);
+			x.color = new Color(255,255,255,0);
+			source.PlayOneShot(load);
+		}
 	}
 
 	//statics
