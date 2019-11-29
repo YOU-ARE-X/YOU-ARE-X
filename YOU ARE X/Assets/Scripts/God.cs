@@ -141,6 +141,7 @@ public class God : MonoBehaviour {
 		"Tennessine",
 		"Oganesson"
 	};
+
 	private string longLines;
 	private Element human;
 
@@ -155,21 +156,21 @@ public class God : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 
 		//create all elements (name) with scenes (zoom, sequence)
-		elements.Add(new Element("Wood"));
-		elements[0].createScene("400", 1);
-		elements[0].createScene("400", 2);
+		elements.Add(new Element("Lignin"));
+		elements[0].createScene("1310", 1);
+		elements[0].createScene("720", 2);
 
-		elements.Add(new Element("Salt"));
-		elements[1].createScene("400", 1);
-		elements[1].createScene("400", 2);
+		elements.Add(new Element("Halite"));
+		elements[1].createScene("150", 1);
+		elements[1].createScene("3500", 2);
 
 		elements.Add(new Element("Copper"));
-		elements[2].createScene("400", 1);
-		elements[2].createScene("400", 2);
+		elements[2].createScene("440", 1);
+		elements[2].createScene("210", 2);
 
 		elements.Add(new Element("Helium"));
-		elements[3].createScene("400", 1);
-		elements[3].createScene("400", 2);
+		elements[3].createScene("10", 1);
+		elements[3].createScene("10", 2);
 
 		human = new Element("Human");
 		human.createScene("1", 1);
@@ -262,7 +263,7 @@ public class God : MonoBehaviour {
 		Text e = GameObject.Find("UI/Element").GetComponent<Text>();
 
 		if (z) z.text = s.zoom;
-		if (e) e.text = s.name;
+		if (e) e.text = s.name.Substring(0, s.name.Length - 2);
 	}
 
 	IEnumerator time() {
@@ -272,13 +273,7 @@ public class God : MonoBehaviour {
 
 		yield return new WaitForSeconds(secondsPerScene);
 
-		float a = blocker.alpha;
-
-		while (a < 1f) {
-			yield return new WaitForSeconds(0.01f);
-			a += 0.01f;
-			blocker.alpha = a;
-		}
+		blocker.alpha = 1f;
 
 		endScene();
 	}
@@ -293,7 +288,7 @@ public class God : MonoBehaviour {
 		x.color = new Color(255,255,255,255);
 		RectTransform rect = x.gameObject.GetComponent<RectTransform>();
 		rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -950);
-		while(rect.anchoredPosition.y < 973f) {
+		while(rect.anchoredPosition.y < 973.5f) {
 			rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, ease(rect.anchoredPosition.y, 975, 2f));
 			yield return new WaitForSeconds(0.001f);
 		}
