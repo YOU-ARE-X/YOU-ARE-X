@@ -293,7 +293,8 @@ public class God : MonoBehaviour {
 			yield return new WaitForSeconds(0.001f);
 		}
 		yield return new WaitForSeconds(2);
-		loadScene(s);
+
+		if (s.name != "Human") loadScene(s);
 	}
 
 	//statics
