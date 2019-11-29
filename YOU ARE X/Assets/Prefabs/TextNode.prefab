@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7302284304062349154}
   - component: {fileID: 7302284304062349153}
   - component: {fileID: 7302284304062349152}
+  - component: {fileID: 4516591761359840986}
   m_Layer: 5
   m_Name: TextNode
   m_TagString: Untagged
@@ -99,6 +100,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4516591761359840986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302284304062349159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d6c2b579417dc44ad005f08990af05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7302284305120575500
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 3175d767d59c7514ba82d7806255f21a, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
