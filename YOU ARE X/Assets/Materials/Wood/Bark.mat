@@ -85,7 +85,7 @@ Material:
     - _Parallax: 0.02
     - _ParallaxEnable: 0
     - _ParallaxStrength: 0
-    - _Reflectivity: 0.9
+    - _Reflectivity: 0.6
     - _Scale: 10
     - _ScaleCoarse: 0.4
     - _ScaleFine: 60
