@@ -91,7 +91,7 @@
                     result += tex2D(_MainTex, coord + delta * (count + 1.0 ) / (antiAliasing * 1.0)).rgba;
                 }
 
-                return result / (1.0 * antiAliasing) * exp(- unity_DeltaTime.z - 0.02);
+                return result / (1.0 * antiAliasing) * exp(- unity_DeltaTime.z - 0.03);
 
                 //return float4(cameraDeltaUV(i.uv), 0.0, 1.0);
 
