@@ -18,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Copper-2.unity
     guid: 12b4fb08698419a449e91bb8a0e8bb91
   - enabled: 1
-    path: Assets/Scenes/Halite-1.unity
+    path: Assets/Scenes/Halite-2.unity
     guid: bc0887e9d593a924f83a9192c44df03e
   - enabled: 1
-    path: Assets/Scenes/Halite-2.unity
+    path: Assets/Scenes/Halite-1.unity
     guid: 182bdaddc6d130144b07dc765962c9d3
   - enabled: 1
     path: Assets/Scenes/Lignin-1.unity
