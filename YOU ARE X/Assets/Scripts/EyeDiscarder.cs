@@ -10,13 +10,18 @@ namespace Assets.Scripts.Cam.Effects {
         private bool currentEye = true;
         private RenderTexture copiedEye;
 
-        public void OnRenderImage(RenderTexture src, RenderTexture dest) {
+        public void OnRenderImage(RenderTexture source, RenderTexture destination) {
+            if(copiedEye == null) {
+                copiedEye = new RenderTexture(source.width, source.height, 0);
+            }
+
             if(currentEye) {
-				Graphics.Blit(src, dest);
-                Graphics.Blit(src, copiedEye);
+				Graphics.Blit(source, destination);
+                Graphics.Blit(source, copiedEye);
 			} else {
-				Graphics.Blit(copiedEye, dest);
+				Graphics.Blit(copiedEye, destination);
 			}
+
 			currentEye = !currentEye;
 		}
 	}
