@@ -1,0 +1,23 @@
+name: 04 - 2019.10.05
+
+tags: log
+
+title: @[LOG 04. 2019.10.05>04 - 2019.10.05]
+
+content: This week we've worked primarily on the physical build. Our design has gone through many iterations, but we've settled on a structure (wooden, painted black) that emphasizes scale. A VR area is dipped slightly in the middle of the installation, creating a sense of inferiority in front of a large triangular monument standing in front of the player, and holding the VR headset. LED strips are placed under a lip in the elevated area around the play space, providing underlighting for the VR area. Additional strips are placed behind the monument.
++
++
+Behind the play area is a plastic, semi-transparent screen where the player's view is projected, allowing outside viewers to observe the piece unfold. The projector is installed above the monument.
++
++
+The floor plan is approximately 2.4m x 2.4m.
++
++
+Additionally, we worked on a @[master design document>https://docs.google.com/document/d/1WrULwgF-BEQyXiVgmWRvXtvDZn8QAva72YVdNUfz_bU/edit?usp=sharing] and a @[tasks sheet>https://docs.google.com/spreadsheets/d/1pnqIGg65-jwD3awHbdhgcv1wEWxhjklra4H4g5pQ40I/edit?usp=sharing] for delegating tasks.
+
+&[physical render>1]
+&[physical render>2]
+&[physical render>3]
+&[blueprint>1]
+&[blueprint>2]
+&[blueprint>3]

@@ -1,0 +1,12 @@
+name: 404
+
+image: 404
+
+tags: nav
+
+title: Couldn't find _[$[self]].
+
+content: If you believe this page should exist, please write to @[@v_exec>https://twitter.com/v_exec] on Twitter.
++
++
+Please return back @[home>index].

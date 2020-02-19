@@ -1,0 +1,58 @@
+name: Index
+
+image: banner
+
+tags: nav
+
+title: YOU ARE *[HUMAN].
+
+content: *[YOU ARE X] is a means through which to embody microscopic matter, to witness life from the molecular world, and to experience the lifespan and journey of the materials found in our day to day lives.
+
+%[]
+
+<iframe class="media" src="https://www.youtube.com/embed/Pk6kRKgpXrQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+%[]
+
+@[Master Design Document>https://docs.google.com/document/d/1WrULwgF-BEQyXiVgmWRvXtvDZn8QAva72YVdNUfz_bU/edit?usp=sharing]
++
+@[Tasks List>https://docs.google.com/spreadsheets/d/1pnqIGg65-jwD3awHbdhgcv1wEWxhjklra4H4g5pQ40I/edit?usp=sharing]
++
+@[Project Statement>https://drive.google.com/file/d/1Xx9Y3fikqq8WZuT5oxHHC4NlDK00myZB/view?usp=sharing]
++
+@[Project Description>https://drive.google.com/file/d/1JNKGxImsHte8XYBNRkMgJf38kmnYHOqM/view?usp=sharing]
++
+@[Budget>https://drive.google.com/file/d/1ccMfj4Z393SB1iCC-cQKks4XWGS_nUwr/view?usp=sharing]
+
+%[]
+![Project Summary]
+
+#[You Are X] is a minimalist installation and interactive VR simulation in which users embody, in a sequence of scenes, a series of different atomic elements and pieces of matter. These scenes showcase static matter, dynamic cellular life, and chemical reactions.
++
++
+For each scene, users are transported to an environment where the selected piece of matter would typically be found. In this scene exist hotspots which, when interacted with by the user, reveal information about the material’s geographical origin, its current location, the processes required for its extraction and processing, and other information relevant to the material’s ecological impact.
++
++
+The installation requires the user to step onto a platform. Attatched to the platform, a simple but dignified monument bears a VR head- set. On the other end is a vertical semi-transparent sheet onto which the experience is projected, allowing outside viewers to passively observe the project.
++
++
+Once the headset is equipped, the user is taken on a journey through the life cycles of several elements. #[You Are X] seeks to do away with the limitations of the human eye. The piece seeks to redefine the relationship between user and matter by stripping them of their human perspective and replacing it with that of matter itself. This experience seeks to raise awareness of the path these materials take, from their conception to their unfortunate waste.
+
+%[]
+![Team]
+
+Victor Ivanov - @[v-os.ca>https://v-os.ca]
++
++
+Jennifer Powroznyk - @[j_powroz>https://hybrid.concordia.ca/j_powroz]
++
++
+Simon Demeule - @[simondemeule>https://simondemeule.com]
++
++
+Catherine Weng - @[cat.weng>mailto:cat.weng97@gmail.com]
+
+%[]
+![Logs]
+
+-[log]

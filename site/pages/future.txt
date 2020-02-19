@@ -1,0 +1,25 @@
+name: 12 - Future
+
+tags: log
+
+title: @[LOG 12. FUTURE>12 - FUTURE]
+
+content: As we document the project and handle the process of setting up future exhibitons, we of course take a critical perspective to evaluate what could be corrected for future showings.
++
++
+We've conclude that the primary things to correct are:
++
++
+- Optimization and 3D assets quality. This can be fixed with fairly minimal reworking of certain scenes.
++
++
+- Audio dynamics. Although the audio is fairly successful at achieving the atmospheric goals we had in mind for it, we do want some more variety in it. A generative audio system using MaxMSP is certain possible, or even a procedurally arranged set of samples in Unity itself. This requires further experimentation in regards to how complex a MaxMSP patch would be to implement, and perhaps even more importantly, what exactly each of these solutions would add to the experience.
++
++
+- Number of scenes. We currently have 8 scenes, but have plans for dozens more - we were simply limited by time. We would love to expand on this experience by adding more scenes, as the 8 we created set up a solid pipeline for producing more at a higher pace.
++
++
+- Narrative polish. Once again as a result of time constraints, we were unable to fully elaborate on the narratives for each element. Having more text for each element would surely enhance the experience by giving players more to learn in each scene, and a more cohesive narrative.
++
++
+Overall, we are very pleased with the results, and plan to take these corrections on prior to future exhibitons in the hope of improving the project with each iteration.

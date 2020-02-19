@@ -1,0 +1,14 @@
+name: 09 - 2019.11.16
+
+tags: log
+
+title: @[LOG 09. 2019.11.16>09 - 2019.11.16]
+
+content: As our scenes near completion, we construct the phyiscal stage that contextualizes the environment for the player.
++
++
+Following its construction and transporation to school, we bring it to the paint room and cover it in two coats of matte black paint. We notice it stains fairly easily with dust, and consider future projects to be painted with a glossier paint instead.
+
+&[other>construction 1]
+&[other>construction 2]
+&[other>paint 1]

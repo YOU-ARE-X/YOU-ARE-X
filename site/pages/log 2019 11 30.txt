@@ -1,0 +1,17 @@
+name: 11 - 2019.11.30
+
+tags: log
+
+title: @[LOG 11. 2019.11.30>11 - 2019.11.30]
+
+content: This was the final week, and our tasks were to put everything together.
++
++
+First, we finished the digital components of the game. Putting the scenes together, adding audio and text, making sure everything looks good, sequencing the scenes in interesting ways, and lots of testing.
++
++
+Afterwards, we constructed the stage, set up the lighting, and set up the VR headset and computer alongside it. With that, we've completed this version project!
+
+&[other>build 3]
+&[other>build 4]
+&[other>team]

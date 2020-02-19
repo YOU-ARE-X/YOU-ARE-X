@@ -1,0 +1,12 @@
+name: 05 - 2019.10.12
+
+tags: log
+
+title: @[LOG 05. 2019.10.12>05 - 2019.10.12]
+
+content: This week we've put focus on progressing scene graphics and the system for sequencing scenes. In regards to scene graphics, we've created an implementation of the secondary electron microscope aesthetic, as well as a screen-space shader that will likely be used for chemical effects.
+
+<[text>1]
+<[chemistry>1]
+&[inspiration>1]
+&[secondary>3]

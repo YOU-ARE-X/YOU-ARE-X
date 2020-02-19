@@ -1,0 +1,12 @@
+name: 06 - 2019.10.19
+
+tags: log
+
+title: @[LOG 06. 2019.10.19>06 - 2019.10.19]
+
+content: With the approaching deadline for grants, this week was focused on creating a grant document for the FASA grant. Below is a page that showcases the format for the grant request.
++
++
+Here is the @[project statement>https://drive.google.com/file/d/1Xx9Y3fikqq8WZuT5oxHHC4NlDK00myZB/view?usp=sharing], and the @[project description>https://drive.google.com/file/d/1JNKGxImsHte8XYBNRkMgJf38kmnYHOqM/view?usp=sharing].
+
+&[documentation>1]

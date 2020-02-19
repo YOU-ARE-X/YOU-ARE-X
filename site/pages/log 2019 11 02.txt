@@ -1,0 +1,11 @@
+name: 07 - 2019.11.02
+
+tags: log
+
+title: @[LOG 07. 2019.11.02>07 - 2019.11.02]
+
+content: Our focus has been directed towards producing some 3D scenes for our game. The scenes we wanted to depict had to show a piece of matter in two different states: their natural environment, and then a non-sustainable environment. So far, we have decided to focus on copper, salt, helium, and wood.
+
+&[other>scenes 1]
+&[other>scenes 2]
+&[other>scenes 3]

@@ -1,0 +1,15 @@
+name: 03 - 2019.09.28
+
+tags: log
+
+title: @[LOG 03. 2019.09.28>03 - 2019.09.28]
+
+content: We've begun making shaders for standard microscopy and secondary electron microscopy. When attempting to implement standard microscopy in Unity, however, we ran into what appears to be a standard issue in rendering. Because an important element in standard microscopy is incredibly shallow depth of field, we decided to use the depth of field effect in Unity. The issue is that because depth of field uses the depth buffer, we cannot have transparent cells because transparency bypasses the depth buffer to allow for things behind the transparent pixels to be drawn. We've decided that removing transparency is not a large sacrifice.
++
++
+Additionally, we figured some future graphics would require custom post processing. We were working in Unity 2019's HDRP, which unfortunately appears to not have any support for custom post processing effects. For that reason, we've switched to Unity's standard render pipeline.
+
+&[cells>1]
+<[cells>2]
+&[secondary>1]
+&[secondary>2]

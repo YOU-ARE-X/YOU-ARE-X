@@ -1,0 +1,16 @@
+name: 10 - 2019.11.23
+
+tags: log
+
+title: @[LOG 10. 2019.11.23>10 - 2019.11.23]
+
+content: This week was dedicated to producing the narratives for the various scenes. More specifically, creating audio and text to tell a story.
++
++
+First, we wrote short stories for each of the scenes we produced (wood, helium, salt, copper). These stories are told over the course of multiple scenes of the same element. For instance, the first scene for "wood" tells the story of a tree that was removed from its home and transported to a processing facility. The next scene tells the story of how the same tree was processed in this facility, and what its body was used for.
++
++
+Alongside this text, we decided to create a sound profile for each of the scenes that represents the story being told. So, using the first scene for "wood" as an example again, we produced a distant bass-y buzz that resembles the sound of a chainsaw. The idea is to provide the player with a soundscape that enhances the story, without making it an too-on-the-nose explicit sonic depiction of the events described.
++
++
+The full set of audio samples can be found @[here>https://drive.google.com/open?id=1L7jP0M5YV9vsnVpwP7e1vmtCs3Flc0XW].

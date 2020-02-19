@@ -1,0 +1,18 @@
+name: 02 - 2019.09.21
+
+tags: log
+
+title: @[LOG 02. 2019.09.21>02 - 2019.09.21]
+
+content: A primary concern was the aesthetic of the scenes. Since we are dealing with various scenes in different environments, it's important to stay consistent in our look and style, so as to keep the experience tied together. Our lead was to look through microscopic imaging and gather samples. So far, we've decided to pursue aesthetics using both traditional microscopy as well as secondary electron microscopy (the ones in black and white).
+
+&[inspiration>1]
+&[inspiration>2]
+&[inspiration>3]
+&[inspiration>4]
+&[inspiration>5]
+&[inspiration>6]
+&[inspiration>7]
+&[inspiration>8]
+&[inspiration>9]
+&[inspiration>10]

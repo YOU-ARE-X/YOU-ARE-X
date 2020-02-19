@@ -1,0 +1,7 @@
+name: 01 - 2019.09.14
+
+tags: log
+
+title: @[LOG 01. 2019.09.14>01 - 2019.09.14]
+
+content: Today, we launch YOU ARE X's website, where you are reading this log.
